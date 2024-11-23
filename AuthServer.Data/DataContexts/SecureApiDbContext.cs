@@ -1,4 +1,5 @@
 ﻿using AuthServer.Core.Entities;
+using AuthServer.Data.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,12 @@ namespace AuthServer.Data.DataContexts
 
         public DbSet<Product> Products { get; set; }
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            base.OnModelCreating(builder);
+        }
 
 
     }
