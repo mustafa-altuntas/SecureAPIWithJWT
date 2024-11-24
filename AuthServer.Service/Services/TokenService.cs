@@ -63,12 +63,6 @@ namespace AuthServer.Service.Services
         }
 
 
-
-
-
-
-
-
         public ClientTokenDto CreateTokenByClient(Client client)
         {
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
@@ -97,7 +91,7 @@ namespace AuthServer.Service.Services
             return clientTokenDto;
         }
 
-        public TokenDto CreteToken(UserApp userApp)
+        public TokenDto CreateToken(UserApp userApp)
         {
 
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
