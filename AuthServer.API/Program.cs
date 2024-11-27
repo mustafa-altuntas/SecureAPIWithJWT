@@ -1,9 +1,24 @@
 using AuthServer.Core.Configurations;
+using AuthServer.Core.Repositories;
+using AuthServer.Core.Services;
+using AuthServer.Core.UnitOfWork;
+using AuthServer.Data.Repositories;
+using AuthServer.Data.UnitOfWork;
+using AuthServer.Service.Services;
 using SharedLibrary.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+// DI Register
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IServiceGeneric<,>), typeof(ServiceGeneric<,>));
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
