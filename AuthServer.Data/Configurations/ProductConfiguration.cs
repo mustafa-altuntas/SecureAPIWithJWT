@@ -28,7 +28,7 @@ namespace AuthServer.Data.Configurations
 
             // Price alanı
             builder.Property(p=>p.Price)
-                .HasColumnType("decimanl(18,2)")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             // Stock alanı
