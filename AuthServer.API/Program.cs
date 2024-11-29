@@ -35,7 +35,13 @@ builder.Services.AddDbContext<SecureApiDbContext>(options =>
 });
 
 
-
+builder.Services.AddIdentity<UserApp, IdentityRole>(opt =>
+{
+    opt.User.RequireUniqueEmail = true;
+    opt.Password.RequireNonAlphanumeric = false;
+})
+    .AddEntityFrameworkStores<SecureApiDbContext>()
+    .AddDefaultTokenProviders();
 
 
 
