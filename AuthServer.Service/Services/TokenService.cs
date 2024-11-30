@@ -57,8 +57,8 @@ namespace AuthServer.Service.Services
             var claims = new List<Claim>();
             claims.AddRange(client.Audiences.Select(c => new Claim(JwtRegisteredClaimNames.Aud, c)));
 
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti,client.Id));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            claims.Add(new Claim(ClaimTypes.Name, client.Id));
 
             return claims;
         }
@@ -103,11 +103,11 @@ namespace AuthServer.Service.Services
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
-                issuer:_tokenOptions.Issuer,
-                expires:accessTokenExpiration,
-                notBefore:DateTime.Now,
-                claims:GetClaims(userApp,_tokenOptions.Audience),
-                signingCredentials:signingCredentials);
+                issuer: _tokenOptions.Issuer,
+                expires: accessTokenExpiration,
+                notBefore: DateTime.Now,
+                claims: GetClaims(userApp, _tokenOptions.Audience),
+                signingCredentials: signingCredentials);
 
             var handler = new JwtSecurityTokenHandler();
 
