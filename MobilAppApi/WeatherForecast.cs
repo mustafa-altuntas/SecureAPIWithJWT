@@ -1,4 +1,4 @@
-namespace MiniApp1.Api
+namespace MobilAppApi
 {
     public class WeatherForecast
     {

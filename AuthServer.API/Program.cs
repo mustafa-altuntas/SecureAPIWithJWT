@@ -1,3 +1,4 @@
+using AuthServer.API.Validations.User;
 using AuthServer.Core.Configurations;
 using AuthServer.Core.Entities;
 using AuthServer.Core.Repositories;
@@ -7,6 +8,8 @@ using AuthServer.Data.DataContexts;
 using AuthServer.Data.Repositories;
 using AuthServer.Data.UnitOfWork;
 using AuthServer.Service.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +28,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IServiceGeneric<,>), typeof(ServiceGeneric<,>));
-builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
 builder.Services.AddDbContext<SecureApiDbContext>(options =>
@@ -75,10 +78,22 @@ builder.Services.AddAuthentication(options =>
 });
 
 
+
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
+
+builder.Services.AddFluentValidationAutoValidation();
+////builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserDtoValidator>();
+
+
 
 var app = builder.Build();
 
