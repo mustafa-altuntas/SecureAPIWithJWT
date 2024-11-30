@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Configurations;
+using SharedLibrary.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,7 +64,7 @@ builder.Services.AddAuthentication(options =>
     {
         ValidIssuer = tokenOptions.Issuer,
         ValidAudience = tokenOptions.Audience[0],
-        IssuerSigningKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
+        IssuerSigningKey = SecurityKeyService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
 
         ValidateIssuerSigningKey = true,
         ValidateAudience = true,
