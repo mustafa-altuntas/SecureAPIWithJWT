@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SharedLibrary.Configurations;
+using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -67,7 +68,7 @@ namespace AuthServer.Service.Services
         {
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
-            var securityKey = SignService.GetSymmetricSecurityKey(_tokenOptions.SecurityKey);
+            var securityKey = SecurityKeyService.GetSymmetricSecurityKey(_tokenOptions.SecurityKey);
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
@@ -97,7 +98,7 @@ namespace AuthServer.Service.Services
             var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
             var refreshTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.RefreshTokenExpiration);
 
-            var securityKey = SignService.GetSymmetricSecurityKey(_tokenOptions.SecurityKey);
+            var securityKey = SecurityKeyService.GetSymmetricSecurityKey(_tokenOptions.SecurityKey);
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
